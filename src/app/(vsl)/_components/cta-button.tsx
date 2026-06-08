@@ -3,6 +3,70 @@ import { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
+// Smoothly scroll to an in-page anchor, re-reading the target's live position every
+// frame. The booking fold sits below the `content-visibility: auto` script section, whose
+// height is only an estimate (contain-intrinsic-size) until it renders — so a one-shot
+// scrollIntoView aims at a stale, too-high position and stops mid-script. By recomputing
+// the destination each frame, this follows #book as that section renders and grows, so it
+// always finishes on the calendar even if the page hasn't fully laid out yet.
+function smoothScrollToAnchor(selector: string) {
+  const target = document.querySelector<HTMLElement>(selector);
+  if (!target) return;
+
+  const NAV_OFFSET = 80; // clear the fixed HeroNav (matches scroll-padding-top intent)
+  const EASE = 0.18;
+  const MAX_MS = 4000;
+
+  let cancelled = false;
+  const cleanup = () => {
+    window.removeEventListener("wheel", onUserScroll);
+    window.removeEventListener("touchstart", onUserScroll);
+    window.removeEventListener("keydown", onKey);
+  };
+  const onUserScroll = () => {
+    cancelled = true;
+    cleanup();
+  };
+  const onKey = (e: KeyboardEvent) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(e.key)) {
+      onUserScroll();
+    }
+  };
+  window.addEventListener("wheel", onUserScroll, { passive: true });
+  window.addEventListener("touchstart", onUserScroll, { passive: true });
+  window.addEventListener("keydown", onKey);
+
+  const start = performance.now();
+  let lastTargetY = Number.NaN;
+  let stableFrames = 0;
+
+  const step = (now: number) => {
+    if (cancelled) return;
+
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const targetY = Math.min(
+      Math.max(target.getBoundingClientRect().top + window.scrollY - NAV_OFFSET, 0),
+      Math.max(maxScroll, 0)
+    );
+    const current = window.scrollY;
+    const diff = targetY - current;
+
+    window.scrollTo(0, Math.abs(diff) < 1 ? targetY : current + diff * EASE);
+
+    const settled = Math.abs(diff) < 1.5 && Math.abs(targetY - lastTargetY) < 1.5;
+    stableFrames = settled ? stableFrames + 1 : 0;
+    lastTargetY = targetY;
+
+    if (stableFrames >= 4 || now - start > MAX_MS) {
+      window.scrollTo(0, targetY);
+      cleanup();
+      return;
+    }
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 interface CTAButtonProps {
   variant: "primary" | "secondary";
   children: React.ReactNode;
@@ -43,7 +107,7 @@ export function CTAButton({ variant, children, onClick, href, anchor }: CTAButto
     onClick?.();
     if (!href) return;
     if (anchor) {
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      smoothScrollToAnchor(href);
       return;
     }
     router.push(href);

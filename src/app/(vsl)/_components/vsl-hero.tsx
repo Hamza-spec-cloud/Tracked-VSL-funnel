@@ -51,18 +51,18 @@ export function VSLHero() {
           For 500k &ndash; $3M/yr CPA, FP&amp;A &amp; Fractional CFO Firms
         </p>
 
-        <h1 className="text-[22px] md:text-[27px] lg:text-[34px] font-semibold leading-[1.05] tracking-tight max-w-5xl">
+        <h1 className="text-[26px] md:text-[32px] lg:text-[41px] font-semibold leading-[1.05] tracking-tight max-w-5xl">
           <span className="text-[#e0e0e0]">
             We Put 3 Signed Advisory Clients On Your Books Every 90 Days&hellip;{" "}
           </span>
           <span className="text-burgundy italic">Or You Don&rsquo;t Pay</span>
         </h1>
 
-        <p className="text-sm md:text-base text-[#e0e0e0] font-light tracking-tight max-w-2xl">
+        <p className="text-[17px] md:text-[19px] text-[#e0e0e0] font-light tracking-tight max-w-2xl">
           We rebuild the single thing that decides whether a stranger ever becomes a client. Then we build the demand system around it. Either it puts ready-to-sign advisory retainers on your calendar every 90 days, or you pay nothing.
         </p>
 
-        <div className="w-full max-w-[759px] mx-auto mt-4 mb-4">
+        <div className="w-full max-w-[911px] mx-auto mt-4 mb-4">
           <VturbPlayer />
         </div>
 
