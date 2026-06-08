@@ -44,7 +44,7 @@ export function VSLBooking() {
 
         {/* Calendar container — VSL-player shadow stack + 1px chrome + GlowingEffect */}
         <div
-          className="relative mt-12 w-full max-w-4xl h-[680px] md:h-[624px] border border-white/[0.08] bg-[#0d0d0d] px-2 md:px-[1cm] py-[0.25cm] overflow-hidden"
+          className="relative mt-12 w-full max-w-4xl h-[80dvh] md:h-[624px] border border-white/[0.08] bg-[#0d0d0d] px-2 md:px-[1cm] py-[0.25cm] overflow-hidden"
           style={{
             boxShadow:
               "0 40px 120px 0px rgba(0,0,0,1), 0 0 60px 10px rgba(0,0,0,0.8)",

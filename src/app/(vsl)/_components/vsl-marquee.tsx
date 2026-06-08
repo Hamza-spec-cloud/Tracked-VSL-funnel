@@ -39,7 +39,12 @@ export function VSLMarquee() {
                 alt={logo.alt}
                 width={logo.width}
                 height={logo.height}
-                sizes="240px"
+                // Logos render ~480px wide (272px tall, 16:9). sizes must match the real
+                // render width so retina desktops get a true-size variant instead of an
+                // upscaled 240px one (the cause of the "downgraded" look). quality 85
+                // (next.config allow-list) keeps the brand marks crisp under screen blend.
+                sizes="480px"
+                quality={85}
                 style={{
                   mixBlendMode: "screen",
                   objectFit: "contain",
