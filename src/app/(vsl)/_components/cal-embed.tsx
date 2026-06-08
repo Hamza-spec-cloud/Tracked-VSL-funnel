@@ -90,6 +90,12 @@ export function CalEmbed() {
       const ns = Cal.ns["constraint-review"];
       if (!ns) return;
 
+      // On phones, hide Cal's event-details card (title + description + duration) so only
+      // the calendar shows; the section heading above acts as the title. Desktop keeps the
+      // full details. 767px = just below the app's `md` desktop breakpoint. (Cal's toggle
+      // is all-or-nothing and the iframe is cross-origin, so this is the only lever.)
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
       ns("inline", {
         elementOrSelector: "#my-cal-inline-constraint-review",
         config: {
@@ -107,7 +113,7 @@ export function CalEmbed() {
           light: { "cal-brand": "#B8365A" },
           dark: { "cal-brand": "#B8365A" },
         },
-        hideEventTypeDetails: false,
+        hideEventTypeDetails: isMobile,
         layout: "month_view",
       });
 
