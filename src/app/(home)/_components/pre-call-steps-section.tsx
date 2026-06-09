@@ -3,6 +3,7 @@
 // py-8 vertical detach, lg:divide-x for column dividers, step number eyebrow per §18a).
 // Icons via Lucide strokeWidth={1.25}, color #e0e0e0. §16 IconBox at md.
 
+"use client";
 import { Phone, Layers, Calculator } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { StepIconCell } from "./step-icon-cell";

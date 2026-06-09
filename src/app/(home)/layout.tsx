@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 
 const inter = Inter({
@@ -22,18 +21,7 @@ export default function HomeRootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <head>
-        {/* Wistia scripts host — warm TCP+TLS before player.js is requested */}
-        <link rel="preconnect" href="https://fast.wistia.com" crossOrigin="anonymous" />
-        {/* Wistia CDN domains — early DNS resolution for video files */}
-        <link rel="dns-prefetch" href="https://embedwistia-a.akamaihd.net" />
-        <link rel="dns-prefetch" href="https://distillery.wistia.com" />
-        <link rel="dns-prefetch" href="https://embed-ssl.wistia.com" />
-      </head>
-      <body>
-        {children}
-        <SpeedInsights />
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

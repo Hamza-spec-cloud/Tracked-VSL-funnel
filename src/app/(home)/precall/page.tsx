@@ -7,7 +7,7 @@ import { ShowUpPreparedSection } from "../_components/show-up-prepared-section";
 import { SiteFooter } from "../_components/site-footer";
 import { SectionArrow } from "../_components/section-arrow";
 import { Spacer } from "../_components/spacer";
-import { Starfield } from "../_components/starfield-dynamic";
+import { Starfield } from "../_components/starfield";
 
 // Layout: a single overflow-x-clip wrapper so burgundy glows can bleed vertically between
 // sections without producing horizontal scrollbars from the §15A weak variant's 110% width.

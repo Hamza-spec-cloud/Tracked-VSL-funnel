@@ -57,7 +57,7 @@ export function ConfirmationHeader() {
               zIndex: 0,
             }}
           />
-          <WistiaPlayer mediaId="4lwhy77yue" eager />
+          <WistiaPlayer mediaId="4lwhy77yue" />
         </div>
 
       </div>

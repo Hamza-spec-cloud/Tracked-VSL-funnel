@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import Script from "next/script";
 import { GlowingEffect } from "./glowing-effect";
 
 interface WistiaPlayerProps {
   mediaId?: string;
   overlaySize?: { width: number; height: number };
-  /** Load scripts immediately. Pass for above-fold players; omit for below-fold (deferred). */
-  eager?: boolean;
 }
 
 // Cast to bypass TypeScript's unknown-element check for the <wistia-player> web component.
@@ -20,35 +18,7 @@ const WistiaEl = "wistia-player" as any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const liveVideos = new Set<any>();
 
-export function WistiaPlayer({
-  mediaId,
-  overlaySize = { width: 110, height: 40 },
-  eager = false,
-}: WistiaPlayerProps) {
-  // Scripts only mount once the player is within 600px of the viewport (unless eager).
-  const [scriptsReady, setScriptsReady] = useState(eager);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  // Deferred script gate — IntersectionObserver with 600px rootMargin.
-  // Mirrors the Cal.com lazy-init pattern used in the VSL sweep.
-  useEffect(() => {
-    if (eager || !mediaId || scriptsReady) return;
-    const el = wrapperRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setScriptsReady(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "600px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [eager, mediaId, scriptsReady]);
-
-  // Single-play coordination — pause all other players when this one starts.
+export function WistiaPlayer({ mediaId, overlaySize = { width: 110, height: 40 } }: WistiaPlayerProps) {
   useEffect(() => {
     if (!mediaId) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,34 +59,25 @@ export function WistiaPlayer({
 
   return (
     <>
-      {/* Scripts mount only when scriptsReady — eager players get them immediately,
-          deferred players get them once within 600px of viewport. */}
-      {scriptsReady && (
-        <>
-          <Script
-            src="https://fast.wistia.com/player.js"
-            strategy="afterInteractive"
-          />
-          <Script
-            src={`https://fast.wistia.com/embed/${mediaId}.js`}
-            strategy="afterInteractive"
-            type="module"
-          />
-          {/* Swatch placeholder renders before the custom element is defined */}
-          <style dangerouslySetInnerHTML={{ __html: `
-            wistia-player[media-id='${mediaId}']:not(:defined) {
-              background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/${mediaId}/swatch');
-              display: block;
-              filter: blur(5px);
-              padding-top: 56.25%;
-            }
-          ` }} />
-        </>
-      )}
-      <div
-        ref={wrapperRef}
-        className="relative w-full overflow-hidden border border-white/[0.08] shadow-[0_40px_120px_0px_rgba(0,0,0,1),0_0_60px_10px_rgba(0,0,0,0.8)]"
-      >
+      <Script
+        src="https://fast.wistia.com/player.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src={`https://fast.wistia.com/embed/${mediaId}.js`}
+        strategy="afterInteractive"
+        type="module"
+      />
+      {/* Swatch placeholder renders before the custom element is defined (script not yet loaded) */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        wistia-player[media-id='${mediaId}']:not(:defined) {
+          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/${mediaId}/swatch');
+          display: block;
+          filter: blur(5px);
+          padding-top: 56.25%;
+        }
+      ` }} />
+      <div className="relative w-full overflow-hidden border border-white/[0.08] shadow-[0_40px_120px_0px_rgba(0,0,0,1),0_0_60px_10px_rgba(0,0,0,0.8)]">
         <GlowingEffect
           disabled={false}
           borderWidth={1}
