@@ -20,7 +20,7 @@ const ASSETS: {
     titleBurgundy: "Title]",
     subtext: "[Asset 01 subtext — one short Arysn-voice line setting the frame.]",
     mediaId: "kf8r68zh09",
-    overlaySize: { width: 84, height: 32 },
+    overlaySize: { width: 130, height: 44 },
   },
   {
     num: "02",
