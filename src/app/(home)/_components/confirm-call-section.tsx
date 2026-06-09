@@ -7,6 +7,9 @@
 import { MessageSquare, MessageCircle } from "lucide-react";
 import { CTAButton } from "./cta-button";
 
+const SMS_HREF = "sms:+2633812461?&body=Confirming%20my%20System%20Diagnostic.";
+const WA_HREF = "https://wa.me/2633812461?text=Confirming%20my%20System%20Diagnostic.";
+
 export function ConfirmCallSection() {
   return (
     <section className="w-full px-6 py-16">
@@ -22,31 +25,44 @@ export function ConfirmCallSection() {
 
         <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
 
-          <CTAButton
-            variant="primary"
-            onClick={() => {
-              window.location.href =
-                "sms:?&body=Confirming%20my%20System%20Diagnostic.";
-            }}
-          >
-            <span className="inline-flex items-center gap-2">
-              <MessageSquare size={14} strokeWidth={1.25} />
-              Confirm via Text
-            </span>
-          </CTAButton>
+          {/* SMS — mobile only */}
+          <span className="sm:hidden">
+            <CTAButton
+              variant="primary"
+              onClick={() => { window.location.href = SMS_HREF; }}
+            >
+              <span className="inline-flex items-center gap-2">
+                <MessageSquare size={14} strokeWidth={1.25} />
+                Confirm via Text
+              </span>
+            </CTAButton>
+          </span>
 
-          <CTAButton
-            variant="secondary"
-            onClick={() => {
-              window.location.href =
-                "https://wa.me/?text=Confirming%20my%20System%20Diagnostic.";
-            }}
-          >
-            <span className="inline-flex items-center gap-2">
-              <MessageCircle size={14} strokeWidth={1.25} />
-              Confirm via WhatsApp
-            </span>
-          </CTAButton>
+          {/* WhatsApp secondary — mobile only (SMS is primary on mobile) */}
+          <span className="sm:hidden">
+            <CTAButton
+              variant="secondary"
+              onClick={() => { window.location.href = WA_HREF; }}
+            >
+              <span className="inline-flex items-center gap-2">
+                <MessageCircle size={14} strokeWidth={1.25} />
+                Confirm via WhatsApp
+              </span>
+            </CTAButton>
+          </span>
+
+          {/* WhatsApp primary — desktop only (sole CTA above sm breakpoint) */}
+          <span className="hidden sm:inline-flex">
+            <CTAButton
+              variant="primary"
+              onClick={() => { window.location.href = WA_HREF; }}
+            >
+              <span className="inline-flex items-center gap-2">
+                <MessageCircle size={14} strokeWidth={1.25} />
+                Confirm via WhatsApp
+              </span>
+            </CTAButton>
+          </span>
 
         </div>
 

@@ -7,6 +7,7 @@ import { ShowUpPreparedSection } from "../_components/show-up-prepared-section";
 import { SiteFooter } from "../_components/site-footer";
 import { SectionArrow } from "../_components/section-arrow";
 import { Spacer } from "../_components/spacer";
+import { Starfield } from "../_components/starfield-dynamic";
 
 // Layout: a single overflow-x-clip wrapper so burgundy glows can bleed vertically between
 // sections without producing horizontal scrollbars from the §15A weak variant's 110% width.
@@ -22,6 +23,9 @@ export default function Page() {
       <HeroNav />
       <main className="relative" style={{ overflowX: "clip" }}>
 
+        {/* Fixed starfield — invisible during hero, fades in as user scrolls into steps */}
+        <Starfield />
+
         {/* Hero — eyebrow + H1 + subhead + orientation VSL */}
         <ConfirmationHeader />
 
@@ -29,20 +33,20 @@ export default function Page() {
         <SectionArrow pad="5vh" />
         <PreCallStepsSection />
 
-        {/* 3-step grid → confirm-call: ≈1cm spacing per user directive (Loop 2) */}
-        <SectionArrow pad="12px" />
+        {/* 3-step grid → confirm-call */}
+        <SectionArrow pad="8px" />
         <ConfirmCallSection />
 
         {/* Confirm-call → pre-call assets */}
-        <SectionArrow pad="10vh" />
+        <SectionArrow pad="3vh" />
         <PreCallAssetsSection />
 
         {/* Pre-call assets → numbers */}
-        <SectionArrow pad="10vh" />
+        <SectionArrow pad="3vh" />
         <ShowUpPreparedSection />
 
         {/* No arrow before footer — experience ends here */}
-        <Spacer h="20vh" />
+        <Spacer h="8vh" />
       </main>
       <SiteFooter />
     </>

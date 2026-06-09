@@ -3,7 +3,6 @@
 // py-8 vertical detach, lg:divide-x for column dividers, step number eyebrow per §18a).
 // Icons via Lucide strokeWidth={1.25}, color #e0e0e0. §16 IconBox at md.
 
-"use client";
 import { Phone, Layers, Calculator } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { StepIconCell } from "./step-icon-cell";
@@ -19,9 +18,9 @@ const STEPS: { icon: LucideIcon; number: string; title: string; description: str
   {
     icon: Layers,
     number: "02",
-    title: "Watch The Three Pre-Call Assets",
+    title: "Watch The Two Pre-Call Assets",
     description:
-      "Three timed, tactical resources further down the page. Each is sequenced — together they compress ramp-up so the call moves at full speed.",
+      "Two timed, tactical resources further down the page. Each is sequenced — together they compress ramp-up so the call moves at full speed.",
   },
   {
     icon: Calculator,
@@ -34,7 +33,7 @@ const STEPS: { icon: LucideIcon; number: string; title: string; description: str
 
 export function PreCallStepsSection() {
   return (
-    <section className="w-full px-6 py-24">
+    <section className="w-full px-6 py-14">
       <div className="max-w-6xl mx-auto w-full">
 
         {/* §17 section header — no eyebrow (the individual step sections below carry the

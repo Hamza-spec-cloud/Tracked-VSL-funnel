@@ -6,7 +6,6 @@
 // Design system: §17 standard section + §15A weak ambient burgundy oval. Card uses §11a
 // GlowingEffect inside bg-[#1a1a1a] elevated surface.
 
-"use client";
 import { GlowingEffect } from "./glowing-effect";
 import { BurgundyGlow } from "./burgundy-glow";
 

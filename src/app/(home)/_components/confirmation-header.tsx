@@ -3,17 +3,14 @@
 // Design system: §17 standard section + §15A weak ambient burgundy oval + §4 max-w-5xl
 // container so the inner VSL (max-w-4xl) fits without overflow.
 
-import { VSLPlayer } from "./vsl-player";
-import { BurgundyGlow } from "./burgundy-glow";
+import { WistiaPlayer } from "./wistia-player";
 
 export function ConfirmationHeader() {
   return (
-    <section className="relative w-full px-6 pt-32 pb-24">
-
-      <BurgundyGlow variant="weak" />
+    <section className="relative w-full px-6 pt-20 pb-12">
 
       <div
-        className="relative max-w-5xl mx-auto w-full flex flex-col items-center text-center gap-8"
+        className="relative max-w-5xl mx-auto w-full flex flex-col items-center text-center gap-5"
         style={{ zIndex: 1 }}
       >
 
@@ -40,11 +37,27 @@ export function ConfirmationHeader() {
           complete before your call.
         </p>
 
-        {/* Orientation VSL — §11a GlowingEffect chrome on the player.
-            mt-4 nudges the player away from the subhead so the messaging stack and the video
-            read as two distinct elements, not a single block. */}
-        <div className="w-full max-w-4xl mx-auto mt-4">
-          <VSLPlayer videoUrl={undefined} />
+        {/* Orientation VSL — glow is positioned inside the player wrapper so its centre
+            locks to the player's centre regardless of section height or text reflow. */}
+        <div className="relative w-full max-w-[911px] mx-auto mt-4">
+          {/* Burgundy glow centred exactly on the player — extends beyond bounds via
+              negative insets so the ellipse reads as a wide halo, not a tight disc. */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-20%",
+              right: "-20%",
+              top: "-50%",
+              bottom: "-50%",
+              background:
+                "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(184,54,90,0.26) 0%, rgba(184,54,90,0.10) 55%, transparent 100%)",
+              filter: "blur(100px)",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
+          />
+          <WistiaPlayer mediaId="4lwhy77yue" eager />
         </div>
 
       </div>

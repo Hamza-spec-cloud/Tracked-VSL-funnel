@@ -6,7 +6,7 @@
 //
 // Parent must be `relative` and must NOT clip overflow.
 
-type Variant = "weak" | "whisper" | "nano" | "strong" | "power";
+type Variant = "weak" | "whisper" | "nano" | "strong" | "power" | "hero";
 
 const STYLES: Record<Variant, React.CSSProperties> = {
   // §15A — Ambient oval (weak). Height 130% lets the glow bleed slightly into the immediate
@@ -67,6 +67,22 @@ const STYLES: Record<Variant, React.CSSProperties> = {
     background:
       "radial-gradient(ellipse 90% 55% at 50% 50%, rgba(192,44,82,0.34) 0%, transparent 100%)",
     filter: "blur(130px)",
+    pointerEvents: "none",
+    zIndex: 0,
+  },
+  // Hero glow — wide flat disc (92% page width, 65% section height) with a brighter centre.
+  // Sits behind the pre-call hero fold. Intentionally narrower than the page so it reads
+  // as a bounded halo rather than a full-bleed wash.
+  hero: {
+    position: "absolute",
+    left: "4%",
+    width: "92%",
+    top: "50%",
+    transform: "translateY(-50%)",
+    height: "65%",
+    background:
+      "radial-gradient(ellipse 90% 50% at 50% 50%, rgba(184,54,90,0.26) 0%, rgba(184,54,90,0.10) 55%, transparent 100%)",
+    filter: "blur(100px)",
     pointerEvents: "none",
     zIndex: 0,
   },

@@ -27,6 +27,25 @@ export function HeroNav() {
           proximity={80}
           inactiveZone={0}
         />
+        {/* Amber warning — centered absolutely so the logo position is unaffected */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          style={{ zIndex: 5 }}
+        >
+          <span
+            style={{
+              color: "#FFBF00",
+              fontSize: "11px",
+              fontWeight: 300,
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              textShadow:
+                "0 0 8px rgba(255,191,0,0.35), 0 0 22px rgba(255,191,0,0.14), 0 0 55px rgba(255,191,0,0.06)",
+            }}
+          >
+            COMPLETE ALL STEPS BELOW TO HOLD YOUR DIAGNOSTIC
+          </span>
+        </div>
         <div className="relative max-w-7xl mx-auto px-6 py-4 flex items-center">
           <Link href="/" className="relative z-10 flex items-center gap-3 no-underline shrink-0">
             <SmartImage
