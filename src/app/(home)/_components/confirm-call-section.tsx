@@ -12,7 +12,7 @@ const WA_HREF = "https://wa.me/2633812461?text=Confirming%20my%20System%20Diagno
 
 export function ConfirmCallSection() {
   return (
-    <section className="w-full px-6 py-16">
+    <section className="w-full px-6 pt-4 pb-16">
       <div className="max-w-3xl mx-auto w-full flex flex-col items-center text-center gap-4">
 
         <p className="text-[11px] font-light tracking-[0.25em] text-[#555555] uppercase">

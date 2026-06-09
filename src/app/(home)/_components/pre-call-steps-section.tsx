@@ -34,7 +34,7 @@ const STEPS: { icon: LucideIcon; number: string; title: string; description: str
 
 export function PreCallStepsSection() {
   return (
-    <section className="w-full px-6 py-14">
+    <section className="w-full px-6 pt-14 pb-2">
       <div className="max-w-6xl mx-auto w-full">
 
         {/* §17 section header — no eyebrow (the individual step sections below carry the
